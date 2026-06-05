@@ -1,5 +1,5 @@
-LLM_BASE_URL = "https://outbound-landless-unvocal.ngrok-free.dev/v1"
-API_KEY = "sk-no-key-needed"
+LLM_BASE_URL = "http://localhost:1234/v1"
+API_KEY = "lm-studio"
 MODEL_NAME = "local-model"
 
 SQL_DB_PATH = "enterprise_hr.db"
