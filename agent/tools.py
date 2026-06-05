@@ -1,0 +1,33 @@
+mcp_tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "vector_search_hr_policy",
+            "description": "Searches the vector database for HR rules, policies, or allowances.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "The semantic search query."}
+                },
+                "required": ["query"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "submit_leave_request",
+            "description": "Writes a new leave application to the SQL database.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "employee_id": {"type": "string"},
+                    "leave_type": {"type": "string", "enum": ["medical", "casual"]},
+                    "start_date": {"type": "string", "description": "Start date in YYYY-MM-DD"},
+                    "total_days": {"type": "integer"}
+                },
+                "required": ["employee_id", "leave_type", "start_date", "total_days"]
+            }
+        }
+    }
+]

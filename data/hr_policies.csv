@@ -1,0 +1,7 @@
+policy_id,topic,policy_text
+POL_001,medical,Medical Leave Policy: Employees are entitled to 10 paid medical leaves per calendar year. Medical leaves do not carry forward to the next year. If an employee takes more than 2 consecutive medical leaves, a valid doctor's certificate must be submitted to the HR portal within 3 days of returning to work.
+POL_002,casual,Casual Leave Policy: Employees are granted 12 casual leaves per year. A maximum of 3 consecutive casual leaves can be taken at one time. Casual leaves must be applied for at least 48 hours in advance. Unused casual leaves can be cashed out at the end of the financial year.
+POL_003,maternity,Maternity Leave Policy: Female employees are eligible for 26 weeks of paid maternity leave. The leave can start up to 8 weeks before the expected delivery date. A medical certificate must be provided at least 30 days prior to the start date.
+POL_004,paternity,Paternity Leave Policy: Male employees are eligible for 15 days of paid paternity leave. This must be availed within 6 months of the child's birth.
+POL_005,wfh,Work From Home (WFH) Policy: Employees are allowed up to 4 days of WFH per month. WFH cannot be combined with Casual Leave. Manager approval is required at least 24 hours in advance.
+POL_006,public_holidays,Public Holidays: The company observes 10 mandatory public holidays and offers 2 optional restricted holidays (RH) per year. If an employee is required to work on a mandatory public holiday, they are entitled to a compensatory off (comp-off) day which must be used within 60 days.
