@@ -1,13 +1,12 @@
 import json
 import logging
-from contextlib import contextmanager
 import sqlite3
-from config import SQL_DB_PATH
+from contextlib import contextmanager
 
 from openai import OpenAI
 
 from agent.tools import mcp_tools
-from config import API_KEY, LLM_BASE_URL, MODEL_NAME
+from config import API_KEY, LLM_BASE_URL, MODEL_NAME, SQL_DB_PATH
 from database.relational import submit_leave_request
 from database.vector import vector_search_hr_policy
 
@@ -110,7 +109,7 @@ def run_agentic_workflow(user_prompt, employee_id="EMP123", history=None):
         tc = "auto"
         try:
             resp = _get_client().chat.completions.create(model=MODEL_NAME, messages=messages, tools=mcp_tools, tool_choice=tc)
-        except Exception as e:
+        except Exception:
             log.exception("LLM call failed")
             serializable = [_msg_to_dict(m) for m in messages[1:]]
             _save_history(employee_id, serializable)
