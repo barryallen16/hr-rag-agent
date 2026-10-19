@@ -22,7 +22,6 @@ def run_agentic_workflow(user_prompt, employee_id="EMP123", history=None):
     messages.append({"role": "user", "content": user_prompt})
     print(f"\n--- User Query ---\n{user_prompt}")
 
-    policy_kw = ["policy", "doctor", "how many", "wfh", "work from home", "maternity", "paternity", "holiday", "allowance", "rule", "note"]
     force_policy = False
 
     for i in range(MAX_ITERS):
