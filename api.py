@@ -1,4 +1,7 @@
+from pathlib import Path
+
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from agent.orchestrator import run_agentic_workflow
@@ -6,6 +9,9 @@ from database.relational import init_relational_db
 from database.vector import init_vector_db
 
 app = FastAPI(title="HR RAG Agent", version="0.1.0")
+UI_DIR = Path(__file__).resolve().parent / "ui"
+if UI_DIR.exists():
+    app.mount("/ui", StaticFiles(directory=UI_DIR, html=True), name="ui")
 
 
 class QueryIn(BaseModel):

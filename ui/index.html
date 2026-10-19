@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HR RAG Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Pixel&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="side">
+      <div class="brand">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 14h16v2H4zM2 8h2v12H2zm18 0h2v12h-2z"/><path d="M11 4h2v4h-2zm-3 6h2v2H8zm6 0h4v2h-4zm-1-8h4v2h-4zM0 12h2v2H0zm22 0h2v2h-2zm-12 4h4v2h-4zm-2-2h2v2H8zm6 0h2v2h-2z"/></svg></span>
+        <span class="brand-name">HR RAG</span>
+      </div>
+      <label class="field">
+        <span>Employee ID</span>
+        <input id="emp" value="EMP101" />
+      </label>
+      <div class="hint">
+        <span class="icon small" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 6h2v4H2zm0 4h2v4H2zm0 4h2v4H2zm18-8h2v4h-2zm0 4h2v4h-2zm0 4h2v4h-2zM4 4h4v2H4zm0 8h4v-2H4zm0 4h4v-2H4zm0 4h4v-2H4zM16 4h4v2h-4zm0 8h4v-2h-4zm0 4h4v-2h-4zm0 4h4v-2h-4zM8 2h8v2H8zm0 12h8v-2H8zm0 4h8v-2H8zm0 4h8v-2H8z"/></svg></span>
+        <span>Connected to local agent</span>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="head">
+        <h1>Ask HR</h1>
+        <p>Policies and leave requests, answered by your local agent.</p>
+      </header>
+      <section id="log" class="log"></section>
+      <form id="form" class="inputbar">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4v2h16zm0 14H6v2h14zm2-12h-2v12h2zM4 4H2v18h2zm2 14H4v2h2zm0-6h4v2H6zm0-4h8v2H6z"/></svg></span>
+        <input id="q" placeholder="Ask a policy or book leave..." autocomplete="off" />
+        <button type="submit" aria-label="Send">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 19h4v2H2v-8h2v6Zm8 0H8v-2h4v2Zm4-2h-4v-2h4v2Zm4-2h-4v-2h4v2Zm-10-2H4v-2h6v2Zm12 0h-2v-2h2v2ZM8 5H4v6H2V3h6v2Zm12 6h-4V9h4v2Zm-4-2h-4V7h4v2Zm-4-2H8V5h4v2Z"/></svg>
+        </button>
+      </form>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
