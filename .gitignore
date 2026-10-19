@@ -4,3 +4,5 @@ chroma_hr_db
 .env
 .pytest_cache
 .ruff_cache
+eval/run.log
+eval/done.flag
