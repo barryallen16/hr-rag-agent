@@ -17,7 +17,7 @@ mcp_tools = [
         "type": "function",
         "function": {
             "name": "submit_leave_request",
-            "description": "Writes a new leave application to the SQL database.",
+            "description": "Writes a new leave application to the SQL database. Call ONLY when the user explicitly asks to book/apply/deduct leave and provides leave_type, start_date, and total_days.",
             "parameters": {
                 "type": "object",
                 "properties": {

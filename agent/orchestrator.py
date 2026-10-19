@@ -15,7 +15,7 @@ MAX_ITERS = 5
 
 
 def run_agentic_workflow(user_prompt, employee_id="EMP123", history=None):
-    messages = [{"role": "system", "content": f"You are an enterprise HR automation agent. Employee ID: {employee_id}. Dates YYYY-MM-DD."}]
+    messages = [{"role": "system", "content": f"You are an enterprise HR automation agent. Employee ID: {employee_id}. Dates YYYY-MM-DD. Rules: For policy questions, ONLY call vector_search_hr_policy and answer; never call submit_leave_request. Only call submit_leave_request when the user explicitly asks to book/apply/deduct leave AND provides leave type, start date, and days. Never invent dates or employee IDs. If required info is missing, ask the user instead of guessing."}]
     if history:
         messages.extend(history)
     messages.append({"role": "user", "content": user_prompt})
