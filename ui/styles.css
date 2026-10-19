@@ -47,6 +47,7 @@ body {
 .inputbar {
   display: flex; align-items: center; gap: 10px;
   padding: 16px 32px; border-top: 1px solid var(--line); background: var(--panel);
+  position: sticky; bottom: 0; z-index: 10;
 }
 .inputbar .icon { color: var(--muted); }
 .inputbar input {
