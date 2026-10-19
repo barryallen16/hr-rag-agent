@@ -1,14 +1,9 @@
 services:
-  ollama:
-    image: ollama/ollama:latest
-    ports: ["11434:11434"]
-    volumes: ["ollama_data:/root/.ollama"]
   app:
     build: .
     ports: ["8000:8000"]
     environment:
-      LLM_BASE_URL: http://ollama:11434/v1
-      MODEL_NAME: llama3.2
-    depends_on: [ollama]
-volumes:
-  ollama_data:
+      # Point this at your LM Studio (host) or any OpenAI-compatible server.
+      LLM_BASE_URL: http://host.docker.internal:1234/v1
+      MODEL_NAME: local-model
+    extra_hosts: ["host.docker.internal:host-gateway"]
