@@ -1,8 +1,7 @@
 # Agentic Enterprise RAG Assistant
 
 An edge-inference AI assistant designed to automate backend workflows. It routes natural language queries to local databases using a Retrieval-Augmented Generation (RAG) pipeline and structured JSON-schema tool calling. Built for fully offline execution to ensure 100% data privacy.
-<img width="1854" height="1048" alt="Screenshot from 2026-06-05 17-47-41" src="https://github.com/user-attachments/assets/e3eafb4d-04cc-49e5-bc11-4bf7a817398b" />
-<img width="1854" height="1048" alt="Screenshot from 2026-06-05 17-47-47" src="https://github.com/user-attachments/assets/7deb69ec-af61-48e2-afeb-016352b9ff00" />
+![Demo](docs/demo.gif)
 
 ## Architecture
 
