@@ -7,3 +7,4 @@ chroma_hr_db
 eval/run.log
 eval/done.flag
 *.db
+*.egg-info
