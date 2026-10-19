@@ -1,50 +1,120 @@
 # Agentic Enterprise RAG Assistant
 
-An edge-inference AI assistant designed to automate backend workflows. It routes natural language queries to local databases using a Retrieval-Augmented Generation (RAG) pipeline and structured JSON-schema tool calling. Built for fully offline execution to ensure 100% data privacy.
+A local HR assistant that answers policy questions with retrieval-augmented generation and books leave through structured tool calls. Runs fully offline against LM Studio.
+
 ![Demo](docs/demo.gif)
+![UI](docs/ui-demo.gif)
+
+## What it does
+
+- Answers HR policy questions (leave, WFH, holidays, allowances) from ChromaDB.
+- Books or deducts leave in SQLite when asked, after checking balances.
+- Asks for missing details instead of guessing.
 
 ## Architecture
 
-- **Inference Engine:** LM Studio (Local Edge Execution)
-- **Vector Database:** ChromaDB (Semantic Document Search)
-- **Relational Database:** SQLite (Transactional Data Handling)
-- **Routing:** JSON-schema tool-calling mapped to Python functions
+- Inference: LM Studio (OpenAI-compatible local server)
+- Vector store: ChromaDB over `data/hr_policies.csv`
+- Relational store: SQLite (`enterprise_hr.db`)
+- Orchestration: JSON-schema tool calling in `agent/`
 
-## Project Structure
+## Project structure
 
 ```text
-├── main.py                  # Application entry point
-├── config.py                # Inference and environment variables
-├── requirements.txt         # Project dependencies
-├── data/                    # CSV datasets (Relational & Vector data)
-├── database/                # SQLite and ChromaDB access layer
-└── agent/                   # LLM orchestration loop and tool schemas
-
+main.py                  # CLI entry point
+config.py                # Environment and paths
+agent/                   # LLM loop and tool schemas
+database/                # SQLite and ChromaDB access
+data/                    # Seed CSVs
+tests/                   # pytest suite
+eval/                    # Eval cases and runner
+ui/                      # Web UI
+api.py                   # FastAPI wrapper
 ```
 
-## Quick Start
+## Quick start
 
-**1. Install dependencies (uv)**
+1. Install dependencies:
 
 ```bash
 uv venv && uv pip install -e ".[dev]"
 cp .env.example .env
 ```
 
-**2. Start Local Inference**
-Open LM Studio, load a model optimized for function calling (e.g., Qwen 2.5), and start the Local Server on `http://localhost:1234/v1`.
-
-**3. Run the Agent**
+2. Start LM Studio, load a function-calling model, and start the server on `http://localhost:1234/v1`.
+3. Initialize data and run:
 
 ```bash
-uv run python main.py            # interactive
-uv run python main.py "my query" # one-shot
-uv run pytest                    # tests
+uv run python main.py
 ```
 
-## Execution Flow
+One-shot query:
 
-1. **Semantic Routing:** User queries regarding policies map to `vector_search_hr_policy` and execute against ChromaDB.
-2. **Action Routing:** Actionable requests (e.g., booking time off) trigger LLM payload extraction, passing arguments to `submit_leave_request` for SQLite database updates.
-3. **Validation:** Agent dynamically handles missing arguments by halting execution and prompting the user for required parameters (e.g., specific dates).
+```bash
+uv run python main.py "How many casual leaves do I get?"
+```
 
+Demo flow:
+
+```bash
+uv run python main.py --demo
+```
+
+## Web UI and API
+
+Run the API:
+
+```bash
+uv run uvicorn api:app --reload
+```
+
+Open `ui/index.html` or serve the `ui/` folder. The UI calls the API on `http://localhost:8000`.
+
+## Docker
+
+```bash
+docker compose up --build
+```
+
+## Tests
+
+```bash
+uv run pytest
+```
+
+## Evaluation
+
+Run the eval harness:
+
+```bash
+uv run python eval/run_eval.py
+```
+
+Results are written to `eval/results.json`.
+
+Current results (9/9 passing):
+
+| Area | Case | Tool match | Answer match |
+|---|---|---|---|
+| Policy | doctor note for sick leave | yes | yes |
+| Policy | casual leave count | yes | yes |
+| Policy | work from home | yes | yes |
+| Policy | maternity leave | yes | yes |
+| Policy | paternity leave | yes | yes |
+| Action | deduct casual leave | yes | yes |
+| Action | book medical leave | yes | yes |
+| Action | insufficient balance | yes | yes |
+| Missing args | ask for required fields | yes | yes |
+
+## Configuration
+
+All settings come from `.env` (see `.env.example`):
+
+- `LLM_BASE_URL`, `API_KEY`, `MODEL_NAME`
+- `SQL_DB_PATH`, `VECTOR_DB_PATH`
+- `EMPLOYEES_CSV_PATH`, `POLICIES_CSV_PATH`
+
+## Notes
+
+- `enterprise_hr.db` and `chroma_hr_db/` are generated at setup and are gitignored.
+- The agent refuses leave types it does not support and reports insufficient balances.
