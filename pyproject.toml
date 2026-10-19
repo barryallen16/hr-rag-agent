@@ -13,6 +13,10 @@ dependencies = [
 dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11"]
 serve = ["fastapi>=0.115", "uvicorn>=0.30"]
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agent*", "database*", "tests*"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -20,3 +24,7 @@ target-version = "py311"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+pythonpath = ["."]
+filterwarnings = [
+    "ignore::DeprecationWarning:chromadb.telemetry.opentelemetry",
+]

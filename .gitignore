@@ -6,3 +6,4 @@ chroma_hr_db
 .ruff_cache
 eval/run.log
 eval/done.flag
+*.db

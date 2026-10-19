@@ -14,8 +14,8 @@ The model never writes SQL. It picks a function with typed arguments. That remov
 
 ## Trade-offs accepted
 
-- Single-turn context. Multi-turn memory would need a session store; skipped to keep scope small.
-- No authentication. The API assumes a trusted network. Add auth before any real deployment.
+- Multi-turn context. Persistent session store in SQLite (`sessions` table) keyed by employee_id; survives restarts.
+- API key auth via `API_AUTH_KEY` env var + `X-API-Key` header. No auth when unset (local dev). Add OAuth/JWT for production.
 - SQLite. Fine for a demo and a few hundred employees. Move to Postgres at scale.
 - Local model quality. The eval harness exists to measure it. Current score: 9/9 tool selection, 9/9 answer match on the golden set.
 
