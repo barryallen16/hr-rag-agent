@@ -15,8 +15,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--employee-id", default="EMP123")
     parser.add_argument("query", nargs="*")
+    parser.add_argument("--demo", action="store_true")
     args = parser.parse_args()
     setup()
+    if args.demo:
+        run_agentic_workflow("Do I need a doctor's note for 3 days sick leave?", employee_id=args.employee_id)
+        run_agentic_workflow("Deduct 2 casual leave days starting 2026-06-10", employee_id=args.employee_id)
+        return
     if args.query:
         run_agentic_workflow(" ".join(args.query), employee_id=args.employee_id)
         return
