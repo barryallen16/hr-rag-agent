@@ -3,7 +3,7 @@ mcp_tools = [
         "type": "function",
         "function": {
             "name": "vector_search_hr_policy",
-            "description": "Searches the vector database for HR rules, policies, or allowances.",
+            "description": "Searches the vector database for HR rules, policies, allowances, leave counts, WFH, holidays. You MUST call this for ANY HR policy or leave question before answering. Example query: 'casual leave allowance per year'.",
             "parameters": {
                 "type": "object",
                 "properties": {

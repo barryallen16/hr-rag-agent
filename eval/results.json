@@ -1,0 +1,72 @@
+[
+  {
+    "id": "policy_doctor_note",
+    "tools": [
+      "vector_search_hr_policy"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "policy_casual_count",
+    "tools": [
+      "vector_search_hr_policy"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "policy_wfh",
+    "tools": [
+      "vector_search_hr_policy"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "policy_maternity",
+    "tools": [
+      "vector_search_hr_policy"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "policy_paternity",
+    "tools": [
+      "vector_search_hr_policy"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "action_casual_ok",
+    "tools": [
+      "submit_leave_request"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "action_medical_ok",
+    "tools": [
+      "submit_leave_request"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "action_insufficient",
+    "tools": [
+      "submit_leave_request"
+    ],
+    "tool_match": true,
+    "answer_match": true
+  },
+  {
+    "id": "missing_args",
+    "tools": [],
+    "tool_match": true,
+    "answer_match": true
+  }
+]
