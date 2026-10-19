@@ -1,3 +1,6 @@
 .venv
 __pycache__
 chroma_hr_db
+.env
+.pytest_cache
+.ruff_cache

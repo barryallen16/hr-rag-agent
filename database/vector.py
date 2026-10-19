@@ -1,34 +1,39 @@
-import chromadb
 import csv
-from config import VECTOR_DB_PATH, POLICIES_CSV_PATH
+
+from config import POLICIES_CSV_PATH, VECTOR_DB_PATH
+
+_client = None
+_collection = None
+
+
+def _collection_handle():
+    global _client, _collection
+    import chromadb
+    if _collection is None:
+        _client = chromadb.PersistentClient(path=VECTOR_DB_PATH)
+        _collection = _client.get_or_create_collection(name="hr_policies")
+        if _collection.count() == 0:
+            ids, metas, docs = [], [], []
+            try:
+                with open(POLICIES_CSV_PATH, newline="") as f:
+                    for row in csv.DictReader(f):
+                        ids.append(row["policy_id"])
+                        metas.append({"topic": row["topic"]})
+                        docs.append(row["policy_text"])
+                _collection.add(documents=docs, metadatas=metas, ids=ids)
+            except FileNotFoundError:
+                print(f"Warning: {POLICIES_CSV_PATH} not found. Skipping vector data import.")
+    return _collection
+
 
 def init_vector_db():
-    chroma_client = chromadb.PersistentClient(path=VECTOR_DB_PATH)
-    collection = chroma_client.get_or_create_collection(name="hr_policies")
-    
-    if collection.count() == 0:
-        ids, metadatas, documents = [], [], []
-        try:
-            with open(POLICIES_CSV_PATH, 'r') as file:
-                reader = csv.DictReader(file)
-                for row in reader:
-                    ids.append(row['policy_id'])
-                    metadatas.append({"topic": row['topic']})
-                    documents.append(row['policy_text'])
-            collection.add(documents=documents, metadatas=metadatas, ids=ids)
-        except FileNotFoundError:
-            print(f"Warning: {POLICIES_CSV_PATH} not found. Skipping vector data import.")
-            
-    return collection
+    return _collection_handle()
 
-def vector_search_hr_policy(query: str) -> str:
-    chroma_client = chromadb.PersistentClient(path=VECTOR_DB_PATH)
-    collection = chroma_client.get_or_create_collection(name="hr_policies")
-    
-    results = collection.query(
-        query_texts=[query],
-        n_results=1
-    )
-    if results['documents'] and results['documents'][0]:
-        return f"Retrieved Policy: {results['documents'][0][0]}"
+
+def vector_search_hr_policy(query: str, n_results: int = 1) -> str:
+    coll = _collection_handle()
+    res = coll.query(query_texts=[query], n_results=n_results)
+    docs = res.get("documents", [[]])[0]
+    if docs:
+        return "Retrieved Policy: " + docs[0]
     return "No highly relevant policy found. Advise user to contact HR."

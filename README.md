@@ -25,11 +25,11 @@ An edge-inference AI assistant designed to automate backend workflows. It routes
 
 ## Quick Start
 
-**1. Install dependencies**
+**1. Install dependencies (uv)**
 
 ```bash
-pip install -r requirements.txt
-
+uv venv && uv pip install -e ".[dev]"
+cp .env.example .env
 ```
 
 **2. Start Local Inference**
@@ -38,8 +38,9 @@ Open LM Studio, load a model optimized for function calling (e.g., Qwen 2.5), an
 **3. Run the Agent**
 
 ```bash
-python main.py
-
+uv run python main.py            # interactive
+uv run python main.py "my query" # one-shot
+uv run pytest                    # tests
 ```
 
 ## Execution Flow

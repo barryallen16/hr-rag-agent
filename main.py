@@ -1,17 +1,31 @@
+import argparse
+
+from agent.orchestrator import run_agentic_workflow
 from database.relational import init_relational_db
 from database.vector import init_vector_db
-from agent.orchestrator import run_agentic_workflow
+
 
 def setup():
-    """Initialize databases before running the agent."""
     print("Initializing Enterprise Infrastructure...")
     init_relational_db()
     init_vector_db()
     print("System Ready.\n")
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--employee-id", default="EMP123")
+    parser.add_argument("query", nargs="*")
+    args = parser.parse_args()
     setup()
-    
-    run_agentic_workflow("Do I need to submit a doctor's note for a 3-day sick leave?", employee_id="EMP123")
-    
-    run_agentic_workflow("Please deduct 2 days of casual leave starting 2026-06-10.", employee_id="EMP123")
+    if args.query:
+        run_agentic_workflow(" ".join(args.query), employee_id=args.employee_id)
+        return
+    print("Interactive mode. Type 'exit' to quit.")
+    while True:
+        q = input("> ").strip()
+        if not q or q.lower() in {"exit", "quit"}:
+            break
+        run_agentic_workflow(q, employee_id=args.employee_id)
+
+if __name__ == "__main__":
+    main()
